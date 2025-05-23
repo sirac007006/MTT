@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montenegro Top Team - BJJ, Judo, MMA Klub Podgorica</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #ffffff;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo h1 {
+            color: #1e3c72;
+            font-size: 26px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+        }
+
+        nav a {
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 14px;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: #FFC107;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 100vh;
+            background-image: url('pocetna.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Overlay for better text readability */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h2 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content .highlight {
+            color: #FFC107;
+            display: block;
+            font-size: 1.2em;
+        }
+
+        .hero-content p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background-color: #FFC107;
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 5px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4);
+        }
+
+        .cta-button-secondary {
+            background-color: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            box-shadow: none;
+        }
+
+        .cta-button-secondary:hover {
+            background-color: #ffffff;
+            color: #1e3c72;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-stats {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #FFC107;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 20px;
+            background-color: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3em;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.3em;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .about-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 2em;
+            color: #1e3c72;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .about-features {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .about-features li {
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .about-features li:before {
+            content: "✓";
+            color: #FFC107;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Disciplines Section */
+        .disciplines {
+            padding: 100px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .discipline-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .discipline-card {
+            background: #ffffff;
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discipline-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #1e3c72 0%, #FFC107 100%);
+        }
+
+        .discipline-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .discipline-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #FFC107;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #1e3c72;
+        }
+
+        .discipline-card h3 {
+            color: #1e3c72;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .discipline-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .discipline-features {
+            list-style: none;
+            text-align: left;
+            color: #666;
+        }
+
+        .discipline-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .discipline-features li:before {
+            content: "•";
+            color: #FFC107;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* Trainers Section */
+        .trainers {
+            padding: 100px 20px;
+            background-color: #f8f9fa;
+        }
+
+        .trainers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 60px auto 0;
+        }
+
+        .trainer-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .trainer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #1e3c72 0%, #FFC107 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .trainer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .trainer-card:hover::before {
+            opacity: 1;
+        }
+
+        .trainer-image {
+            height: 300px;
+            background-color: #e0e0e0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trainer-info {
+            padding: 30px;
+        }
+
+        .trainer-info h3 {
+            color: #1e3c72;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .trainer-info .role {
+            color: #FFC107;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .trainer-info p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Schedule Section */
+        .schedule {
+            padding: 100px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .schedule-table {
+            background-color: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin-top: 60px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #f0f0f0;
+        }
+
+        th {
+            background-color: #1e3c72;
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td {
+            background-color: #ffffff;
+            color: #666;
+        }
+
+        .class-bjj {
+            background-color: #e3f2fd;
+            color: #1e3c72;
+            font-weight: bold;
+        }
+
+        .class-judo {
+            background-color: #fff3e0;
+            color: #e65100;
+            font-weight: bold;
+        }
+
+        .class-mma {
+            background-color: #fce4ec;
+            color: #c2185b;
+            font-weight: bold;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 20px;
+            background-color: #f8f9fa;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+
+        .pricing-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .pricing-card.featured {
+            transform: scale(1.05);
+            border: 3px solid #FFC107;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-card h3 {
+            color: #1e3c72;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .price {
+            font-size: 3em;
+            color: #FFC107;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .price span {
+            font-size: 0.5em;
+            color: #666;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .pricing-features li {
+            padding: 15px 0;
+            color: #666;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 100px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        .gallery-item {
+            height: 300px;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+            height: 620px;
+        }
+        .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+        /* Affiliation Section */
+        .affiliation {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 80px 20px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .affiliation h3 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .affiliation-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .affiliation-logo {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .affiliation-logo h2 {
+            color: #1e3c72;
+            font-size: 2em;
+            margin: 0;
+        }
+
+        .affiliation-text {
+            text-align: left;
+        }
+
+        .affiliation-text p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 20px;
+            background-color: #f8f9fa;
+        }
+
+        .contact-content {
+            max-width: 1400px;
+            margin: 60px auto 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-form {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #1e3c72;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FFC107;
+        }
+
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .contact-item {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-item h4 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-transform: uppercase;
+        }
+
+        .contact-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .map-container {
+            grid-column: span 2;
+            height: 600px;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1e3c72;
+            color: #ffffff;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: #FFC107;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-section p,
+        .footer-section ul {
+            color: #b0c4de;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            padding: 5px 0;
+        }
+
+        .footer-section a {
+            color: #b0c4de;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #FFC107;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #FFC107;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e3c72;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #2a5298;
+            color: #b0c4de;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background-color: #1e3c72;
+            transition: all 0.3s;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-grid,
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .affiliation-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .affiliation-text {
+                text-align: center;
+            }
+
+            /* About section stats grid */
+            .about-content > div:last-child {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-item:nth-child(1) {
+                grid-row: span 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Header adjustments */
+            .logo h1 {
+                font-size: 20px;
+            }
+
+            .logo img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #ffffff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+                gap: 10px;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav a {
+                padding: 10px 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            nav a::after {
+                display: none;
+            }
+
+            /* Hero section */
+            .hero {
+                min-height: 80vh;
+                margin-top: 70px;
+            }
+
+            .hero-content h2 {
+                font-size: 2.5em !important;
+                letter-spacing: 1px !important;
+            }
+
+            .hero-content h2 span {
+                font-size: 1em !important;
+            }
+
+            .hero-content p {
+                font-size: 1.1em !important;
+                padding: 0 10px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 280px;
+                padding: 16px 30px;
+                font-size: 14px;
+            }
+
+            /* Section titles */
+            .section-title {
+                font-size: 2em;
+                margin-bottom: 15px;
+            }
+
+            .section-subtitle {
+                font-size: 1.1em;
+                padding: 0 10px;
+            }
+
+            /* About section */
+            .about-content {
+                padding: 0 10px;
+            }
+
+            .about-content h3 {
+                font-size: 2em !important;
+            }
+
+            .about-content p {
+                font-size: 1em !important;
+            }
+
+            .about-content > div:last-child {
+                gap: 20px;
+                margin-top: 40px;
+            }
+
+            .about-content > div:last-child > div {
+                padding: 30px 20px !important;
+            }
+
+            .about-content > div:last-child > div > div:first-child {
+                font-size: 2.5em !important;
+            }
+
+            /* Why MTT section */
+            section[id="about"] > div > div > div:last-child > div {
+                gap: 30px;
+            }
+
+            section[id="about"] > div > div > div:last-child > div > div {
+                padding: 30px 20px !important;
+            }
+
+            /* Discipline cards */
+            .discipline-cards,
+            .trainers-grid,
+            .pricing-cards,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .discipline-card {
+                padding: 40px 30px;
+            }
+
+            /* Gallery */
+            .gallery-grid {
+                gap: 15px;
+            }
+
+            .gallery-item {
+                height: 250px;
+            }
+
+            .gallery-item:nth-child(1) {
+                grid-column: span 1;
+                height: 250px !important;
+            }
+
+            /* Trainers */
+            .trainer-image {
+                height: 250px;
+            }
+
+            /* Schedule table */
+            .schedule-table {
+                overflow-x: auto;
+            }
+
+            table {
+                font-size: 0.8em;
+                min-width: 600px;
+            }
+
+            th, td {
+                padding: 10px 5px;
+                font-size: 0.85em;
+            }
+
+            /* Pricing */
+            .pricing-card {
+                padding: 40px 30px;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .price {
+                font-size: 2.5em;
+            }
+
+            /* Contact */
+            .contact-form {
+                padding: 40px 30px;
+            }
+
+            .contact-info-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .contact-item {
+                padding: 25px 20px;
+            }
+
+            .map-container {
+                grid-column: span 1;
+                height: 600px;
+            }
+
+            /* Footer */
+            .footer-content {
+                gap: 40px;
+            }
+
+            .social-links {
+                justify-content: left;
+            }
+
+            .footer-bottom {
+                font-size: 0.9em;
+                padding: 20px 10px 10px;
+            }
+
+            /* Forms */
+            .form-group input,
+            .form-group textarea,
+            select {
+                font-size: 16px !important; /* Prevents zoom on iOS */
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Extra small devices */
+            .hero-content {
+                padding: 80px 15px !important;
+            }
+
+            .hero-content h2 {
+                font-size: 2em !important;
+            }
+
+            .hero-content p {
+                font-size: 1em !important;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            .about-content > div:last-child {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: none;
+            }
+
+            /* Affiliation */
+            .affiliation h3 {
+                font-size: 1.8em;
+            }
+
+            .affiliation-logo {
+                padding: 30px 20px;
+            }
+
+            .affiliation-logo h2 {
+                font-size: 1.5em;
+            }
+
+            .affiliation-text p {
+                font-size: 1em;
+            }
+
+            /* Padding adjustments */
+            .gallery,
+            .trainers,
+            .schedule,
+            .pricing,
+            .contact {
+                padding: 60px 15px;
+            }
+
+            /* Footer */
+            footer {
+                padding: 40px 15px 20px;
+            }
+        }
+
+        /* Fix for mobile menu animation */
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Ensure images don't overflow */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Additional responsive styles for About section */
+        @media (max-width: 1024px) {
+            .about-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .stats-grid {
+                margin-top: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-grid {
+                gap: 40px !important;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+        }
+        .profile-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 350px;
+            overflow: hidden;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .profile-content {
+            padding: 20px;
+        }
+
+        .profile-name {
+            color: #1a5490;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+
+        .profile-title {
+            color: #f39c12;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0 0 15px 0;
+        }
+
+        .profile-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+            /* Ključne izmene za pravilno prikazivanje teksta */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        /* Dodatno poboljšanje za mobilne uređaje */
+        @media (max-width: 480px) {
+            .profile-card {
+                max-width: 100%;
+            }
+            
+            .profile-content {
+                padding: 15px;
+            }
+            
+            .profile-name {
+                font-size: 20px;
+            }
+        }
+        .map-container {
+            grid-column: span 2;
+            height: 600px;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .map-container {
+                grid-column: span 1;
+                height: 250px;
+            }
+        }
+        .footer-bottom a {
+            text-decoration: none;
+            color: #f39c12;
+        }
+        .profile-card{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo.png" alt="MTT Logo">
+                <h1>Montenegro Top Team</h1>
+            </div>
+            <ul id="navMenu">
+                <li><a href="index.html">Početna</a></li>
+                <li><a href="onama.html">O nama</a></li>
+                <li><a href="galerija.html">Galerija</a></li>
+                <li><a href="instruktori.html">Instruktori</a></li>
+                <li><a href="kontakt.html">Kontakt</a></li>
+            </ul>
+            <div class="mobile-menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content" style="max-width: 1200px; margin: 0 auto; padding: 120px 20px; text-align: center;">
+            <h2 style="font-size: 4em; margin-bottom: 20px; color: #ffffff; text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                <span style="color: #FFC107; display: block; font-size: 1.2em;">Montenegro</span>
+                Top Team
+            </h2>
+            <p style="font-size: 1.5em; margin-bottom: 40px; color: #ffffff; max-width: 800px; margin-left: auto; margin-right: auto; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">
+                Postani deo elitnog tima boraca u Crnoj Gori. Treniramo šampione u BJJ, Judo i MMA disciplinama.
+            </p>
+            <div class="hero-buttons" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="#contact" class="cta-button">Zakaži probni trening</a>
+                <a href="galerija.html" class="cta-button cta-button-secondary">Pogledaj galeriju</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div style="padding: 100px 20px; background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <h2 class="section-title">O nama</h2>
+                <p class="section-subtitle">Više od kluba - Mi smo porodica</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 60px;" class="about-grid">
+                    <div>
+                        <h3 style="font-size: 2.5em; color: #1e3c72; margin-bottom: 30px;">Montenegro Top Team</h3>
+                        <p style="font-size: 1.2em; color: #666; line-height: 1.8; margin-bottom: 25px;">
+                            Dobrodošli u Montenegro Top Team - vodeći centar borilačkih veština u Podgorici. Od našeg osnivanja, posvećeni smo stvaranju šampiona ne samo na strunjaču, već i u životu.
+                        </p>
+                        <p style="font-size: 1.1em; color: #666; line-height: 1.8; margin-bottom: 25px;">
+                            Naš klub je dom za preko 200 aktivnih članova svih uzrasta - od najmlađih koji tek započinju svoju avanturu sa borilačkim veštinama, do profesionalnih boraca koji se takmiče na međunarodnom nivou.
+                        </p>
+                        <p style="font-size: 1.1em; color: #666; line-height: 1.8;">
+                            Kao ponosni članovi ZR Team Hungary mreže, imamo pristup najnovijim tehnikama i metodologijama treninga, što nam omogućava da pružimo vrhunski nivo obuke.
+                        </p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;" class="stats-grid">
+                        <div style="background: #ffffff; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); text-align: center; transition: transform 0.3s;">
+                            <div style="font-size: 3em; color: #FFC107; font-weight: bold; margin-bottom: 10px;">6+</div>
+                            <p style="color: #666; text-transform: uppercase; font-size: 0.9em;">Godina rada</p>
+                        </div>
+                        <div style="background: #ffffff; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); text-align: center; transition: transform 0.3s;">
+                            <div style="font-size: 3em; color: #FFC107; font-weight: bold; margin-bottom: 10px;">200+</div>
+                            <p style="color: #666; text-transform: uppercase; font-size: 0.9em;">Aktivnih članova</p>
+                        </div>
+                        <div style="background: #ffffff; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); text-align: center; transition: transform 0.3s;">
+                            <div style="font-size: 3em; color: #FFC107; font-weight: bold; margin-bottom: 10px;">4</div>
+                            <p style="color: #666; text-transform: uppercase; font-size: 0.9em;">Profesionalna trenera</p>
+                        </div>
+                        <div style="background: #ffffff; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); text-align: center; transition: transform 0.3s;">
+                            <div style="font-size: 3em; color: #FFC107; font-weight: bold; margin-bottom: 10px;">30+</div>
+                            <p style="color: #666; text-transform: uppercase; font-size: 0.9em;">Osvojenih medalja</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 80px; text-align: center;">
+                    <h3 style="font-size: 2em; color: #1e3c72; margin-bottom: 40px;">Zašto Montenegro Top Team?</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+                        <div style="background: #ffffff; padding: 40px; border-radius: 20px; box-shadow: 0 5px 30px rgba(0,0,0,0.05);">
+                            <div style="width: 70px; height: 70px; background: #FFC107; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 30px;">🏆</div>
+                            <h4 style="color: #1e3c72; font-size: 1.4em; margin-bottom: 15px;">Dokazani rezultati</h4>
+                            <p style="color: #666; line-height: 1.6;">Naši članovi redovno osvajaju medalje na nacionalnim i međunarodnim takmičenjima.</p>
+                        </div>
+                        <div style="background: #ffffff; padding: 40px; border-radius: 20px; box-shadow: 0 5px 30px rgba(0,0,0,0.05);">
+                            <div style="width: 70px; height: 70px; background: #FFC107; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 30px;">👥</div>
+                            <h4 style="color: #1e3c72; font-size: 1.4em; margin-bottom: 15px;">Porodična atmosfera</h4>
+                            <p style="color: #666; line-height: 1.6;">Više od kluba - mi smo zajednica koja se podržava i motiviše.</p>
+                        </div>
+                        <div style="background: #ffffff; padding: 40px; border-radius: 20px; box-shadow: 0 5px 30px rgba(0,0,0,0.05);">
+                            <div style="width: 70px; height: 70px; background: #FFC107; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 30px;">🌟</div>
+                            <h4 style="color: #1e3c72; font-size: 1.4em; margin-bottom: 15px;">Profesionalni pristup</h4>
+                            <p style="color: #666; line-height: 1.6;">Sertifikovani treneri sa bogatim iskustvom u radu sa svim uzrastima.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+        <h2 class="section-title">Galerija</h2>
+        <p class="section-subtitle">Pogledajte našu salu, treninge i uspehe naših članova</p>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="gal1.jpg">
+            </div>
+            <div class="gallery-item">
+                <img src="gal2.jpg">
+            </div>
+            <div class="gallery-item">
+                <img src="gal3.jpg">
+            </div>
+            <div class="gallery-item">
+                <img src="gal4.jpg">
+            </div>
+            <div class="gallery-item">
+                <img src="gal5.jpg">
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="#" class="cta-button" style="display: inline-block;">Pogledaj još</a>
+        </div>
+    </section>
+
+    <section class="trainers" id="trainers">
+        <h2 class="section-title">Naši Instruktori</h2>
+        <p class="section-subtitle">Učite od najboljih - naši instruktori imaju bogato nacionalno i međunarodno iskustvo</p>
+        
+        <div class="trainers-grid">
+            <a class="profile-card" href="instruktori.html#marko">
+                <img src="marko.jpg" class="profile-image">
+                <div class="profile-content">
+                    <h2 class="profile-name">Marko Jokmanović</h2>
+                    <p class="profile-title">Glavni trener BJJ</p>
+                    <p class="profile-description">
+                        Crni pojas u BJJ sa preko 15 godina iskustva. Višestruki šampion Balkana i učesnik svetskih prvenstava
+                    </p>
+                </div>
+            </a>
+            <a class="profile-card" href="instruktori.html#djole">
+                <img src="djole.jpg" alt="Đorđe Krstajić" class="profile-image">
+                <div class="profile-content">
+                    <h2 class="profile-name">Đorđe Krstajić</h2>
+                    <p class="profile-title">POMOĆNI TRENER BJJ NO-GI</p>
+                    <p class="profile-description">
+                        Crni pojas, bivši reprezentativac Crne Gore. Specijalizovan za rad sa mladima
+                    </p>
+                </div>
+            </a>
+            <a href="instruktori.html#emir" class="profile-card">
+                <img src="emir.jpg" class="profile-image">
+                <div class="profile-content">
+                    <h2 class="profile-name">Emir Delijić</h2>
+                    <p class="profile-title">GI trener</p>
+                    <p class="profile-description">
+                        Crni pojas sa preko 10 godina iskustva
+                    </p>
+                </div>
+            </a>
+            
+            <a class="profile-card" href="instruktori.html#aco">
+                <img src="aco.jpg" class="profile-image">
+                <div class="profile-content">
+                    <h2 class="profile-name">Aleksandar Mihailović</h2>
+                    <p class="profile-title">MMA & Rvački trener</p>
+                    <p class="profile-description">
+                        Profesionalni MMA borac "TGS" sa rekordom 5-2
+                    </p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="schedule" id="schedule">
+        <h2 class="section-title">Raspored Treninga</h2>
+        <p class="section-subtitle">Fleksibilan raspored prilagođen svim uzrastima i nivoima</p>
+        
+        <div class="schedule-wrapper" style="max-width: 1200px; margin: 60px auto 0; padding: 0 20px;">
+            <div style="text-align: center;">
+                <img src="raspored.jpg" alt="Raspored treninga" style="width: 100%; max-width: 900px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+            </div>
+        </div>
+    </section>
+
+    <section class="affiliation">
+        <h3>Ponosni članovi međunarodne mreže</h3>
+        <div class="affiliation-content">
+            <div class="affiliation-logo">
+                <img src="zr.png" alt="ZR Team Hungary" style="max-width: 100%; height: auto;">
+            </div>
+            <div class="affiliation-text">
+                <p>Montenegro Top Team je zvanični predstavnik ZR Team Hungary u Crnoj Gori. Ova afilijacija nam omogućava pristup vrhunskim tehnikama, redovne seminare sa svetski priznatim instruktorima i učešće na međunarodnim kampovima.</p>
+                <p>Naši članovi imaju jedinstvenu priliku da treniraju sa najboljim borcima iz regiona i šire, što značajno unapređuje njihove veštine i otvara vrata ka međunarodnoj karijeri.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="section-title">Kontakt</h2>
+        <p class="section-subtitle">Kontaktirajte nas i započnite svoju borilačku avanturu već danas</p>
+        
+        <div class="contact-content">
+            <div class="contact-form">
+                <form method="post" action="mailto:mail@gmail.com">
+                    <div class="form-group">
+                        <label for="name">Ime i prezime</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Poruka</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%;">Pošaljite poruku</button>
+                </form>
+            </div>
+            
+            <div>
+                <div class="contact-info-grid">
+                    <div class="contact-item">
+                        <h4>📞 Telefon</h4>
+                        <p>+382 67 648 984<br></p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>✉️ Email</h4>
+                        <p>mail@gmail.com</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47108.98781715163!2d19.28243103956115!3d42.44238285590924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x134deddf159cb57d%3A0xd0ee73c2fae27fc4!2sMontenegro%20Top%20Team%20-%20Jiu%20Jitsu%20(BJJ)%2C%20Judo%20%26%20MMA!5e0!3m2!1sen!2s!4v1747988829734!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Montenegro Top Team</h4>
+                <p>Elitni centar borilačkih veština u Podgorici. Mesto gde se stvaraju šampioni i grade karakteri.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/montenegrotopteam/" class="social-link"><i class="fa fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61554624102466" class="social-link"><i class="fa fa-facebook"></i></a>
+                    <a href="tel:+38267648984" class="social-link"><i class="fa fa-phone"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Brzi Linkovi</h4>
+                <ul>
+                    <li><a href="index.html">Početna</a></li>
+                    <li><a href="onama.html">O nama</a></li>
+                    <li><a href="galerija.html">Galerija</a></li>
+                    <li><a href="instruktori.html">Instruktori</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Kontakt</h4>
+                <ul>
+                    <li>Adresa: Medunska 4, Podgorica 81000, Crna Gora</li>
+                    <li>Telefon: +382 67 648 984</li>
+                    <li>Email: mail@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <a href="https://www.instagram.com/webkutak/"><p>&copy; 2025 WebKutak. Sva prava zadržana.</p></a>
+        </div>
+    </footer>
+
+    <script>
+        let year = new Date().getFullYear();
+        document.querySelector(".footer-bottom p").textContent = "© " + year + " WebKutak. Sva prava zadržana.";
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            menu.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Header scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.classList.add('scrolled');
+                header.style.boxShadow = '0 5px 30px rgba(0, 0, 0, 0.15)';
+            } else {
+                header.classList.remove('scrolled');
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(50px)';
+            section.style.transition = 'all 0.8s ease-out';
+            observer.observe(section);
+        });
+
+    </script>
+</body>
+</html>

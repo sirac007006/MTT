@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerija - Montenegro Top Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #ffffff;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo h1 {
+            color: #1e3c72;
+            font-size: 26px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+        }
+
+        nav a {
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 14px;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: #FFC107;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 80px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 100px 20px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .page-header h1 {
+            font-size: 3.5em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .page-header p {
+            font-size: 1.3em;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Gallery Filter */
+        .gallery-filter {
+            text-align: center;
+            padding: 50px 20px 30px;
+            background: #f8f9fa;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 30px;
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            color: #666;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover {
+            border-color: #FFC107;
+            color: #1e3c72;
+        }
+
+        .filter-btn.active {
+            background: #FFC107;
+            color: #1e3c72;
+            border-color: #FFC107;
+            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.3);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 50px 20px 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        /* Special gallery layouts */
+        .gallery-showcase {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .gallery-showcase .showcase-main {
+            grid-row: span 2;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .gallery-showcase .showcase-side {
+            height: 287.5px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .gallery-showcase img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-showcase .showcase-main:hover img,
+        .gallery-showcase .showcase-side:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            background: #f0f0f0;
+            aspect-ratio: 1 / 1;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+
+        .gallery-item:hover .gallery-overlay,
+        .gallery-showcase .showcase-main:hover .gallery-overlay,
+        .gallery-showcase .showcase-side:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay h3 {
+            color: #ffffff;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .gallery-overlay p {
+            color: #FFC107;
+            font-size: 0.9em;
+        }
+
+        /* Special gallery items */
+        .gallery-item.featured {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item.horizontal {
+            grid-column: span 2;
+        }
+
+        .gallery-item.vertical {
+            grid-row: span 2;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .lightbox.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+        }
+
+        .lightbox-img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            color: #ffffff;
+            font-size: 40px;
+            cursor: pointer;
+            transition: color 0.3s;
+            background: none;
+            border: none;
+            outline: none;
+        }
+
+        .lightbox-close:hover {
+            color: #FFC107;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ffffff;
+            font-size: 50px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 193, 7, 0.8);
+            color: #1e3c72;
+        }
+
+        .lightbox-prev {
+            left: -80px;
+        }
+
+        .lightbox-next {
+            right: -80px;
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #ffffff;
+            font-size: 1.1em;
+        }
+
+        /* Load more button */
+        .load-more {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .load-more-btn {
+            display: inline-block;
+            padding: 18px 50px;
+            background-color: #FFC107;
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 5px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+            cursor: pointer;
+            border: none;
+            font-size: 1em;
+        }
+
+        .load-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4);
+        }
+
+        /* Stats Section */
+        .gallery-stats {
+            background: #f8f9fa;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            color: #FFC107;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #666;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1e3c72;
+            color: #ffffff;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: #FFC107;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-section p,
+        .footer-section ul {
+            color: #b0c4de;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            padding: 5px 0;
+        }
+
+        .footer-section a {
+            color: #b0c4de;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #FFC107;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #FFC107;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e3c72;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #2a5298;
+            color: #b0c4de;
+        }
+
+        .footer-bottom a {
+            text-decoration: none;
+            color: #f39c12;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background-color: #1e3c72;
+            transition: all 0.3s;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .gallery-showcase {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .gallery-showcase .showcase-main {
+                height: 400px;
+                grid-row: span 1;
+            }
+
+            .gallery-showcase .showcase-side {
+                height: 300px;
+            }
+
+            .gallery-item.featured {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .gallery-item.horizontal {
+                grid-column: span 1;
+            }
+
+            .gallery-item.vertical {
+                grid-row: span 1;
+            }
+
+            .lightbox-nav {
+                font-size: 40px;
+                padding: 15px;
+            }
+
+            .lightbox-prev {
+                left: 10px;
+            }
+
+            .lightbox-next {
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Header adjustments */
+            .logo h1 {
+                font-size: 20px;
+            }
+
+            .logo img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #ffffff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+                gap: 10px;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav a {
+                padding: 10px 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            nav a::after {
+                display: none;
+            }
+            .page-header h1 {
+                font-size: 2.5em;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .filter-buttons {
+                gap: 10px;
+            }
+
+            .filter-btn {
+                padding: 10px 20px;
+                font-size: 0.8em;
+            }
+
+            .lightbox-close {
+                top: 20px;
+                right: 20px;
+                font-size: 30px;
+            }
+
+            .lightbox-nav {
+                font-size: 30px;
+                padding: 10px;
+            }
+
+            .lightbox-caption {
+                bottom: 20px;
+                font-size: 1em;
+                padding: 0 20px;
+            }
+            .logo h1 {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 60px 20px;
+            }
+
+            .page-header h1 {
+                font-size: 2em;
+            }
+
+            .page-header p {
+                font-size: 1.1em;
+            }
+
+            .gallery-section {
+                padding: 30px 15px 60px;
+            }
+
+            .stat-item {
+                padding: 30px 20px;
+            }
+
+            .stat-number {
+                font-size: 2.5em;
+            }
+        }
+
+        /* Mobile menu animation */
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Loading animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gallery-item {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo.png" alt="MTT Logo">
+                <h1>Montenegro Top Team</h1>
+            </div>
+            <ul id="navMenu">
+                <li><a href="index.html">Početna</a></li>
+                <li><a href="onama.html">O nama</a></li>
+                <li><a href="galerija.html">Galerija</a></li>
+                <li><a href="instruktori.html">Instruktori</a></li>
+                <li><a href="kontakt.html">Kontakt</a></li>
+            </ul>
+            <div class="mobile-menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <h1>Galerija</h1>
+        <p>Pogledajte trenutke sa naših treninga, takmičenja i druženja</p>
+    </section>
+
+    <section class="gallery-filter">
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterGallery('all')">Sve</button>
+            <button class="filter-btn" onclick="filterGallery('treninzi')">Treninzi</button>
+            <button class="filter-btn" onclick="filterGallery('takmicenja')">Takmičenja</button>
+            <button class="filter-btn" onclick="filterGallery('seminari')">Seminari</button>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <!-- Showcase section with special layout -->
+        <div class="gallery-showcase">
+            <div class="showcase-main" data-category="treninzi" onclick="openLightbox(0)">
+                <img src="gal-main.jpg" alt="BJJ trening u punoj sali">
+                <div class="gallery-overlay">
+                    <h3>BJJ trening u punoj sali</h3>
+                    <p>Večernji trening sa preko 30 članova</p>
+                </div>
+            </div>
+            <div>
+                <div class="showcase-side" data-category="takmicenja" onclick="openLightbox(1)">
+                    <img src="gal-mma.jpg" alt="MMA pobeda">
+                    <div class="gallery-overlay">
+                        <h3>MMA pobeda</h3>
+                        <p>Petar Klikovac - TKO</p>
+                    </div>
+                </div>
+                <div class="showcase-side" style="margin-top: 25px;" data-category="takmicenja" onclick="openLightbox(2)">
+                    <img src="gal-victory.jpg">
+                    <div class="gallery-overlay">
+                        <h3>Slika sa treninga</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Featured item -->
+            <div class="gallery-item featured" data-category="treninzi" onclick="openLightbox(3)">
+                <img src="gal1.jpg" alt="BJJ trening NO-GI">
+                <div class="gallery-overlay">
+                    <h3>BJJ trening NO-GI</h3>
+                </div>
+            </div>
+
+            <!-- Regular items -->
+            <div class="gallery-item" data-category="takmicenja" onclick="openLightbox(4)">
+                <img src="gal2.jpg" alt="Pobeda MMA borca Petra Klikovca MFC 2023">
+                <div class="gallery-overlay">
+                    <h3>Pobeda MMA borca Petra Klikovca MFC 2023</h3>
+                </div>
+            </div>
+
+            <div class="gallery-item horizontal" data-category="takmicenja" onclick="openLightbox(5)">
+                <img src="gal3.jpg" alt="Pobeda MMA borca Nikole Sinđića MFC 2024">
+                <div class="gallery-overlay">
+                    <h3>Pobeda MMA borca Nikole Sinđića MFC 2024</h3>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="seminari" onclick="openLightbox(6)">
+                <img src="gal4.jpg">
+                <div class="gallery-overlay">
+                    <h3>JUDO Seminar</h3>
+                    <p>Dečiji seminar</p>
+                </div>
+            </div>
+
+            <div class="gallery-item vertical" data-category="takmicenja" onclick="openLightbox(7)">
+                <img src="gal5.jpg">
+                <div class="gallery-overlay">
+                    <h3>Grupna slika sa VIN Challenge-a</h3>
+                    <p>VIN Challenge 2023</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="treninzi" onclick="openLightbox(8)">
+                <img src="gal6.jpg" alt="Dečiji trening">
+                <div class="gallery-overlay">
+                    <h3>Dečiji trening</h3>
+                    <p>Grupa 6-10 godina</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="takmicenja" onclick="openLightbox(9)">
+                <img src="gal7.jpg" alt="AJP 2024">
+                <div class="gallery-overlay">
+                    <h3>AJP 2024</h3>
+                    <p>11 medalja</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="seminari" onclick="openLightbox(10)">
+                <img src="gal8.jpg" alt="Tehnički seminar">
+                <div class="gallery-overlay">
+                    <h3>Tehnički seminar</h3>
+                    <p>Napredne tehnike</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="takmicenja" onclick="openLightbox(11)">
+                <img src="gal9.jpg">
+                <div class="gallery-overlay">
+                    <h3>Evropsko Prvenstvo NO-GI JJIF</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="load-more">
+            <button class="load-more-btn" onclick="loadMoreImages()">Učitaj još slika</button>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+            <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">&#8249;</button>
+            <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">&#8250;</button>
+            <img class="lightbox-img" id="lightboxImg" src="" alt="">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+    </div>
+
+    <section class="gallery-stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Fotografija</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Događaja</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Takmičenja</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Seminara</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Montenegro Top Team</h4>
+                <p>Elitni centar borilačkih veština u Podgorici. Mesto gde se stvaraju šampioni i grade karakteri.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/montenegrotopteam/" class="social-link"><i class="fa fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61554624102466" class="social-link"><i class="fa fa-facebook"></i></a>
+                    <a href="tel:+38267648984" class="social-link"><i class="fa fa-phone"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Brzi Linkovi</h4>
+                <ul>
+                    <li><a href="index.html">Početna</a></li>
+                    <li><a href="onama.html">O nama</a></li>
+                    <li><a href="galerija.html">Galerija</a></li>
+                    <li><a href="instruktori.html">Instruktori</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Kontakt</h4>
+                <ul>
+                    <li>Adresa: Medunska 4, Podgorica 81000, Crna Gora</li>
+                    <li>Telefon: +382 67 648 984</li>
+                    <li>Email: mail@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <a href="https://www.instagram.com/webkutak/"><p>&copy; 2025 WebKutak. Sva prava zadržana.</p></a>
+        </div>
+    </footer>
+
+    <script>
+        // Gallery images data
+        const galleryImages = [
+            { src: 'gal-main.jpg', title: 'BJJ trening u punoj sali', category: 'treninzi' },
+            { src: 'gal-mma.jpg', title: 'MMA pobeda', category: 'takmicenja' },
+            { src: 'gal-victory.jpg', title: 'Šampionska titula', category: 'takmicenja' },
+            { src: 'gal1.jpg', title: 'Trening u punoj sali', category: 'treninzi' },
+            { src: 'gal2.jpg', title: 'Pobeda Petra Klikovca MFC', category: 'takmicenja' },
+            { src: 'gal3.jpg', title: 'Pobeda Nikole Sinđića MFC 2024', category: 'takmicenja' },
+            { src: 'gal4.jpg', title: 'Dečiji seminar JUDO', category: 'seminari' },
+            { src: 'gal5.jpg', title: 'VIN Challenge 2023', category: 'takmicenja' },
+            { src: 'gal6.jpg', title: 'Dečiji trening', category: 'treninzi' },
+            { src: 'gal7.jpg', title: 'AJP 2024', category: 'takmicenja' },
+            { src: 'gal8.jpg', title: 'Tehnički seminar', category: 'seminari' },
+            { src: 'gal9.jpg', title: 'Evropsko Prvenstvo Zadar', category: 'takmicenja' }
+        ];
+
+        let currentImageIndex = 0;
+        let currentFilter = 'all';
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            menu.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Gallery filter
+        function filterGallery(category) {
+            currentFilter = category;
+            const showcaseItems = document.querySelectorAll('.gallery-showcase > div > div');
+            const gridItems = document.querySelectorAll('.gallery-grid .gallery-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter showcase items
+            showcaseItems.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 100);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+            
+            // Filter grid items
+            gridItems.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 100);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+
+        // Lightbox functions
+        function openLightbox(index) {
+            currentImageIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImg');
+            const caption = document.getElementById('lightboxCaption');
+            
+            img.src = galleryImages[index].src;
+            caption.textContent = galleryImages[index].title;
+            lightbox.classList.add('active');
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function navigateLightbox(direction) {
+            currentImageIndex += direction;
+            
+            if (currentImageIndex < 0) {
+                currentImageIndex = galleryImages.length - 1;
+            } else if (currentImageIndex >= galleryImages.length) {
+                currentImageIndex = 0;
+            }
+            
+            const img = document.getElementById('lightboxImg');
+            const caption = document.getElementById('lightboxCaption');
+            
+            img.src = galleryImages[currentImageIndex].src;
+            caption.textContent = galleryImages[currentImageIndex].title;
+        }
+
+        // Close lightbox on outside click
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'ArrowLeft') {
+                    navigateLightbox(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navigateLightbox(1);
+                } else if (e.key === 'Escape') {
+                    closeLightbox();
+                }
+            }
+        });
+
+        // Load more images
+        function loadMoreImages() {
+            const grid = document.getElementById('galleryGrid');
+            const newImages = [
+                { src: 'gal10.jpg', title: 'Danilo Obradović ADCC 2024', category: 'takmicenja' },
+                { src: 'gal11.jpg', title: 'ADCC 2025', category: 'takmicenja' },
+                { src: 'gal12.jpg', title: 'Zlatna Medalja Lazara Popovića AJP Podgorica 2024', category: 'takmicenja' },
+                { src: 'gal13.jpg', title: 'Nova godina u klubu', category: 'treninzi' },
+                { src: 'gal14.jpg', title: 'Zadar 2024', category: 'takmicenja' },
+                { src: 'gal15.jpg', title: 'SGC 2024 Miloš Đurović', category: 'takmicenja' }
+            ];
+
+            newImages.forEach((image, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.dataset.category = image.category;
+                item.onclick = () => openLightbox(galleryImages.length + index);
+                
+                item.innerHTML = `
+                    <img src="${image.src}" alt="${image.title}">
+                    <div class="gallery-overlay">
+                        <h3>${image.title}</h3>
+                        <p>${getCategoryName(image.category)}</p>
+                    </div>
+                `;
+                
+                // Apply current filter
+                if (currentFilter !== 'all' && image.category !== currentFilter) {
+                    item.style.display = 'none';
+                }
+                
+                grid.appendChild(item);
+                
+                // Add to gallery images array
+                galleryImages.push(image);
+            });
+
+            // Hide load more button after loading
+            event.target.style.display = 'none';
+        }
+
+        function getCategoryName(category) {
+            const names = {
+                'treninzi': 'Trening',
+                'takmicenja': 'Takmičenje',
+                'seminari': 'Seminar',
+            };
+            return names[category] || category;
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Observe gallery items
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            observer.observe(item);
+        });
+
+        // Observe stat items
+        const statsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.gallery-stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Animate stats
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.innerText);
+                const increment = target / 50;
+                let current = 0;
+                
+                const updateNumber = () => {
+                    if (current < target) {
+                        current += increment;
+                        stat.innerText = Math.ceil(current) + '+';
+                        requestAnimationFrame(updateNumber);
+                    } else {
+                        stat.innerText = target + '+';
+                    }
+                };
+                
+                updateNumber();
+            });
+        }
+
+        // Preload images for smooth experience
+        function preloadImages() {
+            galleryImages.forEach(image => {
+                const img = new Image();
+                img.src = image.src;
+            });
+        }
+
+        // Initialize
+        preloadImages();
+    </script>
+</body>
+</html>

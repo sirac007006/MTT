@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instruktori - Montenegro Top Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #ffffff;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo h1 {
+            color: #1e3c72;
+            font-size: 26px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+        }
+
+        nav a {
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 14px;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: #FFC107;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background-color: #1e3c72;
+            transition: all 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 50vh;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternunits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.05"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 60px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+
+        /* Section Styles */
+        .section-title {
+            text-align: center;
+            font-size: 3em;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.3em;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        /* Instruktori Section */
+        .instruktori {
+            padding: 100px 20px;
+            background-color: #f8f9fa;
+        }
+
+        .instruktor-card {
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            margin-bottom: 60px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .instruktor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+
+        .instruktor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .instruktor-content {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 0;
+            align-items: center;
+        }
+
+        .instruktor-image {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .instruktor-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .instruktor-info {
+            padding: 50px;
+        }
+
+        .instruktor-info h3 {
+            color: #1e3c72;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .instruktor-role {
+            color: #FFC107;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .instruktor-role::before {
+            content: '';
+            width: 40px;
+            height: 3px;
+            background-color: #FFC107;
+        }
+
+        .instruktor-bio {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .instruktor-achievements {
+            list-style: none;
+        }
+
+        .instruktor-achievements h4 {
+            color: #1e3c72;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .instruktor-achievements li {
+            padding: 8px 0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .instruktor-achievements li::before {
+            content: "🏆";
+            font-size: 18px;
+        }
+
+        /* Alternating Layout */
+        .instruktor-card:nth-child(even) .instruktor-content {
+            grid-template-columns: 1fr 350px;
+        }
+
+        .instruktor-card:nth-child(even) .instruktor-image {
+            order: 2;
+        }
+
+        .instruktor-card:nth-child(even) .instruktor-info {
+            order: 1;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h3 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .cta-section p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background-color: #FFC107;
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 5px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1e3c72;
+            color: #ffffff;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: #FFC107;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-section p,
+        .footer-section ul {
+            color: #b0c4de;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            padding: 5px 0;
+        }
+
+        .footer-section a {
+            color: #b0c4de;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #FFC107;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #FFC107;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e3c72;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #2a5298;
+            color: #b0c4de;
+        }
+
+        .footer-bottom a {
+            text-decoration: none;
+            color: #f39c12;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .instruktor-content,
+            .instruktor-card:nth-child(even) .instruktor-content {
+                grid-template-columns: 1fr;
+            }
+
+            .instruktor-image {
+                height: 300px;
+            }
+
+            .instruktor-info {
+                padding: 40px 30px;
+            }
+
+            .instruktor-card:nth-child(even) .instruktor-image,
+            .instruktor-card:nth-child(even) .instruktor-info {
+                order: unset;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 20px;
+            }
+
+            .logo img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #ffffff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+                gap: 10px;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav a {
+                padding: 10px 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            nav a::after {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1.1em;
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+
+            .instruktor-info {
+                padding: 30px 20px;
+            }
+
+            .instruktor-info h3 {
+                font-size: 1.8em;
+            }
+
+            .instruktor-bio {
+                font-size: 1em;
+            }
+
+            .cta-section h3 {
+                font-size: 2em;
+            }
+
+            .cta-section p {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                min-height: 40vh;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .instruktori {
+                padding: 60px 15px;
+            }
+
+            .instruktor-card {
+                margin-bottom: 40px;
+            }
+
+            .instruktor-info {
+                padding: 25px 15px;
+            }
+
+            .cta-section {
+                padding: 60px 15px;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo.png" alt="MTT Logo">
+                <h1>Montenegro Top Team</h1>
+            </div>
+            <ul id="navMenu">
+                <li><a href="index.html">Početna</a></li>
+                <li><a href="onama.html">O nama</a></li>
+                <li><a href="galerija.html">Galerija</a></li>
+                <li><a href="instruktori.html" class="active">Instruktori</a></li>
+                <li><a href="kontakt.html">Kontakt</a></li>
+            </ul>
+            <div class="mobile-menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Naši Instruktori</h1>
+            <p>Učite od najboljih - naši instruktori imaju bogato nacionalno i međunarodno iskustvo u borilačkim veštinama</p>
+        </div>
+    </section>
+
+    <section class="instruktori">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            
+            <!-- Marko Jokmanović -->
+            <div class="instruktor-card" id="marko">
+                <div class="instruktor-content">
+                    <div class="instruktor-image">
+                        <img src="marko.jpg" alt="Marko Jokmanović">
+                    </div>
+                    <div class="instruktor-info">
+                        <h3>Marko Jokmanović</h3>
+                        <div class="instruktor-role">Glavni trener BJJ</div>
+                        <div class="instruktor-bio">
+                            Marko Jokmanović je osnivač i glavni instruktor kluba Montenegro Top Team iz Podgorice, sa preko 15 godina iskustva u brazilskom džiu-džicuu (BJJ). Nosilac je crnog pojasa drugog dana i svoju borilačku karijeru započeo je 2008. godine. Od tada je jedan od ključnih pokretača razvoja BJJ scene u Crnoj Gori.
+                            <br><br>
+                            Kao vizionar i lider, Marko je uspeo da izgradi jednu od najrespektabilnijih škola brazilskog džiu-džicua u regionu. Njegova filozofija je da borilačke veštine nisu samo borba i tehnika, već i sredstvo lične transformacije, samopouzdanja i izgradnje karaktera.                        </div>
+                        <div class="instruktor-achievements">
+                            <h4>Najveći uspesi:</h4>
+                            <li>Crni pojas II dan u BJJ (dodijeljen u okviru ZR Team sistema)</li>
+                            <li>Šampion Balkana u BJJ – osvajač titula 2019. i 2020. godine</li>
+                            <li>Učesnik svetskog prvenstva IBJJF</li>
+                            <li>Osvajač zlatne medalje u NO GI i srebrne u GI diviziji crnih pojaseva do 70 kg u New Yorku</li>
+                            <li>Više od 200 obučenih učenika u Crnoj Gori i inostranstvu</li>
+                            <li>Trenerski angažman i usavršavanje u SAD (Renzo Gracie Academy, A-Force BJJ International) i Kanadi (Empire MMA)</li>
+                            <li>Član međunarodne mreže ZR Team Hungary</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Đorđe Krstajić -->
+            <div class="instruktor-card" id="djole">
+                <div class="instruktor-content">
+                    <div class="instruktor-image">
+                        <img src="djole.jpg" alt="Đorđe Krstajić">
+                    </div>
+                    <div class="instruktor-info">
+                        <h3>Đorđe Krstajić</h3>
+                        <div class="instruktor-role">Pomoćni trener BJJ No-Gi</div>
+                        <div class="instruktor-bio">
+                            Đorđe Krstajić je istaknuti takmičar i trener u klubu Montenegro Top Team iz Podgorice, sa višegodišnjim iskustvom u brazilskom džiu-džicuu (BJJ). Kao nosilac smeđeg pojasa, Đorđe je započeo svoju borilačku karijeru kao junior i od tada je ostvario značajne rezultate na domaćim i međunarodnim takmičenjima.
+                            <br><br>
+                            Kao posvećen i ambiciozan sportista, Đorđe je svojim radom i zalaganjem doprineo razvoju BJJ scene u Crnoj Gori. Njegova filozofija je da borilačke veštine nisu samo fizička disciplina, već i put ličnog razvoja i izgradnje karaktera.                        </div>
+                        <div class="instruktor-achievements">
+                            <h4>Najveći uspesi:</h4>
+                            <li>Crni pojas u BJJ (ZR team BJJ afilijacija)</li>
+                            <li>Osvajač bronzane medalje na AJP Montenegro National PRO (2022)</li>
+                            <li>Osvajač zlatne medalje u juniorskoj teškoj kategoriji na Split BJJ Open (2015)</li>
+                            <li>Osvajač bronzane medalje u kategoriji do 82 kg na BJJ Serbian Open (2017)</li>
+                            <li>Osvajač zlatne medalje u kategoriji i srebrne u apsolutnoj kategoriji na Balkan BJJ Open u Skoplju (2017)</li>
+                            <li>Osvajač bronzane medalje u kategoriji do 88,3 kg na 1st BJJ Montenegro Open</li>
+                            <li>Trenerski angažman i usavršavanje u klubu Montenegro Top Team</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emir Delijić -->
+            <div class="instruktor-card" id="emir">
+                <div class="instruktor-content">
+                    <div class="instruktor-image">
+                        <img src="emir.jpg" alt="Emir Delijić">
+                    </div>
+                    <div class="instruktor-info">
+                        <h3>Emir Delijić</h3>
+                        <div class="instruktor-role">GI Trener</div>
+                        <div class="instruktor-bio">
+                            Emir Delijić je crnogorski BJJ crni pojas i istaknuti takmičar kluba Montenegro Top Team iz Podgorice. Pored sportske karijere, Emir je pravnik sa master diplomom sa Pravnog fakulteta Univerziteta u Beogradu i direktor pravne firme Lexellent Podgorica. 
+                            <br><br>
+                            Kao član ZR Team International mreže, Emir je ostvario zapažene rezultate na domaćim i međunarodnim takmičenjima, uključujući AJP Tour i JJIF prvenstva.                        
+</div>
+                        <div class="instruktor-achievements">
+                            <h4>Najveći uspesi:</h4>
+                            <li>Crni pojas u BJJ (ZR Team International)</li>
+                            <li>4. mjesto na JJIF Svjetskom kupu 2024.</li>
+                            <li>5. mjesto na JJIF Evropskom prvenstvu 2024.</li>
+                            <li>13. mjesto na JJIF Svjetskom prvenstvu 2024.</li>
+                            <li>Učesnik AJP Tour takmičenja u Srbiji, Hrvatskoj, Austriji, Bosni i Hercegovini i Crnoj Gori</li>
+                            <li>Viceprvak Crne Gore u kategoriji -94 kg (GI i NO GI)</li>
+                            <li>Sudija u AJP Tour organizaciji</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aleksandar Mihailović -->
+            <div class="instruktor-card" id="aco">
+                <div class="instruktor-content">
+                    <div class="instruktor-image">
+                        <img src="aco.jpg" alt="Aleksandar Mihailović">
+                    </div>
+                    <div class="instruktor-info">
+                        <h3>Aleksandar Mihailović</h3>
+                        <div class="instruktor-role">MMA & Rvački Trener</div>
+                        <div class="instruktor-bio">
+                            Aleksandar "TGS" Mihailović je profesionalni MMA borac iz Podgorice, Crna Gora, koji se takmiči u velter kategoriji. Rođen je 24. februara 1998. godine i visok je 179 cm. Njegov profesionalni MMA rekord iznosi 5 pobeda i 2 poraza, sa trenutnim nizom od 4 uzastopne pobede. 
+<br><br>
+Mihailović je poznat po svom nadimku "The Giant Slayer" i istakao se na regionalnoj MMA sceni kroz nastupe na događajima kao što su FNC i ARMMADA. Njegova poslednja borba održana je 21. oktobra 2023. godine na ARMMADA 6 događaju u Vršcu, Srbija, gde je pobedio Emmanuela Binyeta jednoglasnom odlukom sudija. 
+<br><br>
+Prethodno je zabeležio pobede protiv protivnika kao što su Stanislav Krofak na FNC 9 i Nenad Avramović. Njegov stil borbe karakteriše snažan stand-up i tehnička priprema, što ga čini jednim od perspektivnih boraca u regionu.                        </div>
+                        <div class="instruktor-achievements">
+                            <h4>Najveći uspesi:</h4>
+                            <li>Profesionalni MMA rekord: 5 pobeda – 2 poraza</li>
+                            <li>Trenutni niz od 4 uzastopne pobede</li>
+                            <li>Pobeda nad Emmanuelom Binyetom na ARMMADA 6 (2023)</li>
+                            <li>Pobeda nad Stanislavom Krofakom na FNC 9</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h3>Spremni za trening?</h3>
+            <p>Pridružite se našem timu i počnite svoju borilačku avanturu sa najboljim instruktorima u regionu</p>
+            <a href="kontakt.html" class="cta-button">Zakaži probni trening</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Montenegro Top Team</h4>
+                <p>Elitni centar borilačkih veština u Podgorici. Mesto gde se stvaraju šampioni i grade karakteri.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/montenegrotopteam/" class="social-link"><i class="fa fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61554624102466" class="social-link"><i class="fa fa-facebook"></i></a>
+                    <a href="tel:+38267648984" class="social-link"><i class="fa fa-phone"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Brzi Linkovi</h4>
+                <ul>
+                    <li><a href="index.html">Početna</a></li>
+                    <li><a href="onama.html">O nama</a></li>
+                    <li><a href="galerija.html">Galerija</a></li>
+                    <li><a href="instruktori.html">Instruktori</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Kontakt</h4>
+                <ul>
+                    <li>Adresa: Medunska 4, Podgorica 81000, Crna Gora</li>
+                    <li>Telefon: +382 67 648 984</li>
+                    <li>Email: mail@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <a href="https://www.instagram.com/webkutak/"><p>&copy; 2025 WebKutak. Sva prava zadržana.</p></a>
+        </div>
+    </footer>
+
+    <script>
+        let year = new Date().getFullYear();
+        document.querySelector(".footer-bottom p").textContent = "© " + year + " WebKutak. Sva prava zadržana.";
+        
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            menu.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Animate cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all instructor cards
+        document.querySelectorAll('.instruktor-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'all 0.8s ease-out';
+            observer.observe(card);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
